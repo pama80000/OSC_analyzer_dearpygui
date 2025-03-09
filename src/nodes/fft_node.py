@@ -89,6 +89,7 @@ class FFTNode(Node):
             
             # 結果をキャッシュし、ダーティフラグをクリア
             self.result_cache = {
+                "data": amplitude,
                 "freq": freq,
                 "amplitude": amplitude
             }

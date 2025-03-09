@@ -76,6 +76,7 @@ class EnvelopeNode(Node):
             # 結果をキャッシュし、ダーティフラグをクリア
             self.result_cache = {
                 "time": time_array,
+                "data": envelope,
                 "envelope": envelope
             }
             self.is_dirty = False

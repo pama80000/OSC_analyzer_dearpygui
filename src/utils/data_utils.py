@@ -133,7 +133,8 @@ def extract_envelope(data: np.ndarray, smooth: bool = False, window_size: int = 
     # 平滑化（オプション）
     if smooth and window_size > 1:
         envelope = np.convolve(envelope, np.ones(window_size)/window_size, mode='same')
-    
+    max_val = np.max(np.abs(data))
+    envelope = np.clip(envelope, a_min=None, a_max=max_val * 1.1)
     return envelope
 
 

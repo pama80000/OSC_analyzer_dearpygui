@@ -7,6 +7,7 @@
 ノードの管理、接続の管理、パイプラインの保存・読み込み、実行などの機能を提供します。
 """
 
+import logging
 import os
 import json
 import importlib.util
@@ -221,8 +222,9 @@ class Pipeline:
             if node.id not in visited:
                 visit(node.id)
         
-        # 実行順序を反転（依存関係の逆順）
-        return list(reversed(order))
+        # 実行順序のログ出力（依存関係の順序）
+        logging.debug("Execution order: " + str([node.__class__.__name__ for node in order]))
+        return order
 
     def execute(self) -> Dict[str, Any]:
         """
@@ -240,10 +242,13 @@ class Pipeline:
         # 各ノードを順番に実行
         results = {}
         for node in execution_order:
+            logging.debug(f"Processing node '{node.title}' with ID '{node.id}'.")
             try:
                 node_results = node.process()
+                logging.debug(f"Node '{node.title}' result: {node_results}")
                 results[node.id] = node_results
             except Exception as e:
+                logging.error(f"Error processing node '{node.title}' (ID: {node.id}): {str(e)}")
                 raise RuntimeError(f"ノード '{node.title}' の実行エラー: {str(e)}")
         
         return results
