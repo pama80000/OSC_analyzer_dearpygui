@@ -1,3 +1,8 @@
 # Requirements for the Python project
 # Add your project dependencies here.
 pytest
+dearpygui>=1.10.1
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+matplotlib>=3.7.0
